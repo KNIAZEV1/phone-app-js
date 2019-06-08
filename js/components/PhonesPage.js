@@ -1,20 +1,25 @@
 import PhonesCatalogue from './PhonesCatalogue.js';
+import PhoneViewer from './PhoneViewer.js';
 import { getAll, getById } from '../api/phone.js'
 
 export default class PhonesPage {
   constructor(element) {
     this.element = element;
 
-    this.render();
-
     this.state = {
       phones: getAll(),
+      selectedPhone: null,
     };
 
-    new PhonesCatalogue(
-      document.querySelector('PhonesCatalogue'),
-      { phones: this.state.phones }
-    );
+    this.render();
+
+    this.initComponent(PhonesCatalogue, {
+      phones: this.state.phones,
+    });
+
+    this.initComponent(PhoneViewer, {
+      phone: this.state.selectedPhone,
+    });
   }
 
   render() {
@@ -48,9 +53,20 @@ export default class PhonesPage {
         </div>
         <!--Main content-->
         <div class="col-md-10">
-          <PhonesCatalogue></PhonesCatalogue>
+          ${ this.state.selectedPhone ?
+            `<PhoneViewer></PhoneViewer>` :
+            `<PhonesCatalogue></PhonesCatalogue>` }
         </div>
       </div>
     `;
+  }
+
+  initComponent(constructor, props) {
+    const container = this.element.querySelector(constructor.name);
+
+    if(!container) {
+      return;
+    }
+    new constructor(container, props);
   }
 }
