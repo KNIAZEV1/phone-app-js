@@ -1,4 +1,5 @@
 import PhonesCatalogue from './PhonesCatalogue.js';
+import { getAll, getById } from '../api/phone.js'
 
 export default class PhonesPage {
   constructor(element) {
@@ -6,8 +7,13 @@ export default class PhonesPage {
 
     this.render();
 
+    this.state = {
+      phones: getAll(),
+    };
+
     new PhonesCatalogue(
-      document.querySelector('PhonesCatalogue')
+      document.querySelector('PhonesCatalogue'),
+      { phones: this.state.phones }
     );
   }
 
