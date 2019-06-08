@@ -12,14 +12,15 @@ export default class PhonesPage {
     };
 
     this.render();
+  }
 
-    this.initComponent(PhonesCatalogue, {
-      phones: this.state.phones,
-    });
+  initComponent(constructor, props) {
+    const container = this.element.querySelector(constructor.name);
 
-    this.initComponent(PhoneViewer, {
-      phone: this.state.selectedPhone,
-    });
+    if(!container) {
+      return;
+    }
+    new constructor(container, props);
   }
 
   render() {
@@ -59,14 +60,18 @@ export default class PhonesPage {
         </div>
       </div>
     `;
-  }
 
-  initComponent(constructor, props) {
-    const container = this.element.querySelector(constructor.name);
+    this.initComponent(PhonesCatalogue, {
+      phones: this.state.phones,
+      // при выборе телефона в каталоге:
+      onPhoneSelected: (phoneId) => {
+        this.state.selectedPhone = getById(phoneId); // телефон берется с "сервера" и сохраняется в state
+        this.render();
+      }
+    });
 
-    if(!container) {
-      return;
-    }
-    new constructor(container, props);
+    this.initComponent(PhoneViewer, {
+      phone: this.state.selectedPhone,
+    });
   }
 }

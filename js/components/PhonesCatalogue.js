@@ -6,6 +6,15 @@ export default class PhonesCatalogue {
     this.props = props;
 
     this.render();
+
+    this.element.addEventListener('click', (event) => {
+      const delegateTarget = event.target.closest('[data-element="phone-link"]');
+
+      if(!delegateTarget) {
+        return;
+      }
+      this.props.onPhoneSelected(delegateTarget.dataset.phoneId);
+    });
   }
 
   render() {
