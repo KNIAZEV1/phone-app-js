@@ -72,6 +72,10 @@ export default class PhonesPage {
 
     this.initComponent(PhoneViewer, {
       phone: this.state.selectedPhone,
+      onBack: () => {
+        this.state.selectedPhone = null; // телефон берется с "сервера" и сохраняется в state
+        this.render();
+      }
     });
   }
 }
