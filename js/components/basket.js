@@ -1,5 +1,5 @@
 export default class basket {
-  constructor(element) {
+  constructor(element, props) {
     this.element = element;
     this.props = props;
 
