@@ -13,6 +13,16 @@ export default class PhonesCatalogue {
       }
       this.props.onPhoneSelected(delegateTarget.dataset.phoneId);
     });
+
+    this.element.addEventListener('click', (event) => {
+      const delegateTarget = event.target.closest('[data-element="add-button"]');
+
+      if (!delegateTarget) {
+        return;
+      }
+
+      this.props.addToBasket(delegateTarget.dataset.phoneId)
+    });
   }
 
   render() {
@@ -30,7 +40,11 @@ export default class PhonesCatalogue {
             </a>
 
             <div class="phones__btn-buy-wrapper">
-              <a class="btn btn-success">
+              <a
+              class="btn btn-success"
+              data-element="add-button"
+              data-phone-id="${phone.id}"
+              >
                 Add
               </a>
             </div>

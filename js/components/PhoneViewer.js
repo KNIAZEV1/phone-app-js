@@ -27,30 +27,34 @@ export default class PhoneViewer {
       this.render();
     });
 
+    this.element.addEventListener('click', (event) => {
+      const delegateTarget = event.target.closest('[data-element="add-button"]');
+
+      if (!delegateTarget) {
+        return;
+      }
+
+      this.props.addToBasket(delegateTarget.dataset.phoneId)
+    });
   }
 
   render() {
-    const {phone} = this.props;
+    const { phone } = this.props;
 
     this.element.innerHTML = `
       <div>
-          <img class="phone" src="${ this.state.currentPicture }">
-
-          <button data-element="back-button">Back</button>
-          <button>Add to basket</button>
-
-
-          <h1>${ phone.name }</h1>
-
-          <p>${ phone.description }</p>
-
-          <ul class="phone-thumbs">
-            ${ phone.images.map((image) => `
-              <li>
-                <img src="${image}">
-              </li>
-            `).join('') }
-          </ul>
+        <img class="phone" src="${ this.state.currentPicture }">
+        <button data-element="back-button">Back</button>
+        <button data-element="add-button" data-phone-id="${phone.id}">Add to basket</button>
+        <h1>${phone.name}</h1>
+        <p>${phone.description}</p>
+        <ul class="phone-thumbs">
+          ${phone.images.map((image, number) => `
+            <li>
+              <img src="${image}" data-element="thumbnail">
+            </li>
+            `).join('')}
+        </ul>
       </div>
     `;
   }
