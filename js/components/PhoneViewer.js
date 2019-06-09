@@ -49,11 +49,11 @@ export default class PhoneViewer {
         <h1>${phone.name}</h1>
         <p>${phone.description}</p>
         <ul class="phone-thumbs">
-          ${phone.images.map((image, number) => `
+          ${ phone.images.map((image) => `
             <li>
-              <img src="${image}" data-element="thumbnail">
+              <img src="${image}">
             </li>
-            `).join('')}
+          `).join('') }
         </ul>
       </div>
     `;
