@@ -6,30 +6,35 @@ export default class basket {
     this.render();
 
     this.element.addEventListener('click', (event) => {
-      const delegateTarget =
-      event.target.closest('[data-element="remove-button"]');
+      const removeBtn = event.target.closest('[data-element="remove-button"]');
 
-      if (!delegateTarget) {
+      if (!removeBtn) {
         return;
       }
 
-      let numberInBasket = delegateTarget.dataset.numberInBasket;
+      let numberInBasket = removeBtn.dataset.numberInBasket;
       this.props.items.splice(numberInBasket, 1);
 
       this.render();
     })
   }
-  
+
   render() {
     this.element.innerHTML = `
-    <section>
-      <p>Shopping Cart</p>
-      <ul>
-        ${ this.props.items.map((item, i) => `
-          <li>${item.name}<button data-element="remove-button" data-number-in-basket="${i}">x</button></li>
-          `).join('') }
-      </ul>
-    </section>
-    `
+      <section>
+        <p>Shopping Cart</p>
+        <ul>
+          ${ this.props.items.map((item, i) => `
+            <li>
+              <span>${ item.name }</span>
+              <button
+                data-element="remove-button"
+                data-number-in-basket="${ i }"> x
+              </button>
+            </li>
+            `).join('') }
+        </ul>
+      </section>
+    `;
   }
 }

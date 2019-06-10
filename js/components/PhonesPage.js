@@ -6,8 +6,7 @@ import basket from './basket.js';
 export default class PhonesPage {
   constructor(element) {
     this.element = element;
-
-    this.state = {
+    this.state = { //- объект для хранения данных (свойств) компонента
       phones: getAll(),
       selectedPhone: null,
       basketItems: [],
