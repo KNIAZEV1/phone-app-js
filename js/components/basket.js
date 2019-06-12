@@ -1,26 +1,31 @@
-export default class basket {
+import Component from '../Component.js';
+
+export default class Basket extends Component {
   constructor(element, props) {
-    this.element = element;
-    this.props = props;
+    super(element, props);
 
     this.render();
-
   }
 
   render() {
+    const { items } = this.props;
+
     this.element.innerHTML = `
       <section>
         <p>Shopping Cart</p>
         <ul>
-          ${ this.props.items.map((item, i) => `
+          ${items.map((item, index) => `
             <li>
-              <span>${ item.name }</span>
+              ${item}
+
               <button
-                data-element="remove-button"
-                data-number-in-basket="${ i }"> x
+                data-element="delete-button"
+                data-item-index="${index}"
+              >
+                x
               </button>
             </li>
-            `).join('') }
+          `).join('')}
         </ul>
       </section>
     `;

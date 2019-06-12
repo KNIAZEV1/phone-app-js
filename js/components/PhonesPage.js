@@ -1,9 +1,8 @@
 import Component from '../Component.js';
-
 import PhonesCatalogue from './PhonesCatalogue.js';
 import PhoneViewer from './PhoneViewer.js';
 import { getAll, getById } from '../api/phone.js';
-import basket from './basket.js';
+import Basket from './Basket.js';
 
 export default class PhonesPage extends Component {
   constructor(element) {
@@ -47,7 +46,7 @@ export default class PhonesPage extends Component {
             </p>
           </section>
 
-          <basket></basket>
+          <Basket></Basket>
         </div>
         <!--Main content-->
         <div class="col-md-10">
@@ -60,11 +59,24 @@ export default class PhonesPage extends Component {
 
     this.initComponent(PhonesCatalogue, {
       phones: this.state.phones,
-      // при выборе телефона в каталоге:
+
       onPhoneSelected: (phoneId) => {
-        this.state.selectedPhone = getById(phoneId); // телефон берется с "сервера" и сохраняется в state
+        this.state.selectedPhone = getById(phoneId);
         this.render();
       },
+
+      onAdd: (phoneId) => {
+        this.state = {
+          ...this.state,
+
+          basketItems: [
+            ...this.state.basketItems,
+            phoneId
+          ]
+        };
+
+        this.render();
+      }
     });
 
     this.initComponent(PhoneViewer, {
@@ -75,7 +87,7 @@ export default class PhonesPage extends Component {
       },
     });
 
-    this.initComponent(basket, {
+    this.initComponent(Basket, {
       items: this.state.basketItems,
     });
   }
