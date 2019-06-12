@@ -38,15 +38,6 @@ export default class PhonesPage extends Component {
     this.render();
   }
 
-  initComponent(constructor, props) {
-    const container = this.element.querySelector(constructor.name);
-
-    if(!container) {
-      return;
-    }
-    new constructor(container, props);
-  }
-
   render() {
     this.element.innerHTML = `
       <div class="row">
