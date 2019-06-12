@@ -13,16 +13,11 @@ export default class PhoneViewer extends Component {
     this.on('click', 'back-button', this.props.onBack);
 
     this.on('click', 'thumbnail', (event) => {
-      this.state = {
-        ...this.state,
+      this.setState({
         currentPicture: event.delegateTarget.src,
-      };
-
-      this.render();
+      })
     });
   }
-
-
 
   render() {
     const { phone } = this.props;

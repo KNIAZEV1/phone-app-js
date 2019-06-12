@@ -61,21 +61,18 @@ export default class PhonesPage extends Component {
       phones: this.state.phones,
 
       onPhoneSelected: (phoneId) => {
-        this.state.selectedPhone = getById(phoneId);
-        this.render();
+        this.setState({
+          selectedPhone: getById(phoneId),
+        })
       },
 
       onAdd: (phoneId) => {
-        this.state = {
-          ...this.state,
-
+        this.setState({
           basketItems: [
             ...this.state.basketItems,
             phoneId
           ]
-        };
-
-        this.render();
+        });
       }
     });
 
