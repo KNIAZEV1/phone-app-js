@@ -1,11 +1,14 @@
+import Component from '../Component.js';
+
 import PhonesCatalogue from './PhonesCatalogue.js';
 import PhoneViewer from './PhoneViewer.js';
 import { getAll, getById } from '../api/phone.js';
 import basket from './basket.js';
 
-export default class PhonesPage {
+export default class PhonesPage extends Component {
   constructor(element) {
-    this.element = element;
+    super(element);
+
     this.state = { //- объект для хранения данных (свойств) компонента
       phones: getAll(),
       selectedPhone: null,
