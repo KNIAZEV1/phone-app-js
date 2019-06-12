@@ -5,6 +5,12 @@ export default class Basket extends Component {
     super(element, props);
 
     this.render();
+
+    this.on('click', 'delete-button', (event) => {
+      this.props.onDelete(
+        +event.delegateTarget.dataset.itemIndex,
+      );
+    });
   }
 
   render() {
