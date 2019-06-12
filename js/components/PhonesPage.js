@@ -62,22 +62,12 @@ export default class PhonesPage {
         this.state.selectedPhone = getById(phoneId); // телефон берется с "сервера" и сохраняется в state
         this.render();
       },
-      addToBasket: (id) => {
-        let phone = getById(id);
-        this.state.basketItems.push(phone);
-        this.render();
-      },
     });
 
     this.initComponent(PhoneViewer, {
       phone: this.state.selectedPhone,
       onBack: () => {
         this.state.selectedPhone = null; // телефон берется с "сервера" и сохраняется в state
-        this.render();
-      },
-      addToBasket: (id) => {
-        let phone = getById(id);
-        this.state.basketItems.push(phone);
         this.render();
       },
     });

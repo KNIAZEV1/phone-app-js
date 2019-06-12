@@ -14,16 +14,6 @@ export default class PhonesCatalogue {
 
       this.props.onPhoneSelected(phoneLink.dataset.phoneId);
     });
-
-    this.element.addEventListener('click', (event) => {
-      const addBtn = event.target.closest('[data-element="add-button"]');
-
-      if (!addBtn) {
-        return;
-      }
-
-      this.props.addToBasket(addBtn.dataset.phoneId)
-    });
   }
 
   render() {

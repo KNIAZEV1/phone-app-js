@@ -5,18 +5,6 @@ export default class basket {
 
     this.render();
 
-    this.element.addEventListener('click', (event) => {
-      const removeBtn = event.target.closest('[data-element="remove-button"]');
-
-      if (!removeBtn) {
-        return;
-      }
-
-      let numberInBasket = removeBtn.dataset.numberInBasket;
-      this.props.items.splice(numberInBasket, 1);
-
-      this.render();
-    })
   }
 
   render() {
