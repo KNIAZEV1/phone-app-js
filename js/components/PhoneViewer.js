@@ -17,6 +17,12 @@ export default class PhoneViewer extends Component {
         currentPicture: event.delegateTarget.src,
       })
     });
+    
+    this.on('click', 'add-button', (event) => {
+      this.props.onAdd(
+        event.delegateTarget.dataset.phoneId,
+      );
+    });
   }
 
   render() {

@@ -14,6 +14,27 @@ export default class PhonesPage extends Component {
       basketItems: [],
     };
 
+    this.addBasketItem = (phoneId) => {
+      this.setState({
+        basketItems: [
+          ...this.state.basketItems,
+          phoneId
+        ]
+      });
+    };
+
+    this.showPhone = (phoneId) => {
+      this.setState({
+        selectedPhone: getById(phoneId),
+      })
+    };
+
+    this.goBack = () => {
+      this.setState({
+        selectedPhone: null
+      })
+    },
+
     this.render();
   }
 
@@ -59,29 +80,14 @@ export default class PhonesPage extends Component {
 
     this.initComponent(PhonesCatalogue, {
       phones: this.state.phones,
-
-      onPhoneSelected: (phoneId) => {
-        this.setState({
-          selectedPhone: getById(phoneId),
-        })
-      },
-
-      onAdd: (phoneId) => {
-        this.setState({
-          basketItems: [
-            ...this.state.basketItems,
-            phoneId
-          ]
-        });
-      }
+      onPhoneSelected: this.showPhone,
+      onAdd: this.addBasketItem,
     });
 
     this.initComponent(PhoneViewer, {
       phone: this.state.selectedPhone,
-      onBack: () => {
-        this.state.selectedPhone = null; // телефон берется с "сервера" и сохраняется в state
-        this.render();
-      },
+      onBack: this.goBack,
+      onAdd: this.addBasketItem,
     });
 
     this.initComponent(Basket, {
