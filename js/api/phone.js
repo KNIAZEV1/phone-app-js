@@ -10,7 +10,7 @@ export const getById = (phoneId) => {
 
   xhr.status != 200 ?
     xhr.status + ': ' + xhr.statusText :
-    phones;
+    phone;
 
   return phone;
 };
