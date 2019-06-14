@@ -9,7 +9,7 @@ export default class PhonesPage extends Component {
     super(element);
 
     this.state = { //- объект для хранения данных (свойств) компонента
-      phones: getAll(),
+      phones: [],
       selectedPhone: null,
       basketItems: [],
     };
@@ -35,9 +35,10 @@ export default class PhonesPage extends Component {
     };
 
     this.showPhone = (phoneId) => {
-      this.setState({
-        selectedPhone: getById(phoneId),
-      })
+      getById(phoneId)
+        .then(phonesDetails => {
+          this.setState({ selectedPhone: phonesDetails })
+        });
     };
 
     this.goBack = () => {
@@ -47,6 +48,11 @@ export default class PhonesPage extends Component {
     },
 
     this.render();
+
+    getAll()
+      .then(phones => {
+        this.setState({ phones: phones });
+      });
   }
 
   render() {
