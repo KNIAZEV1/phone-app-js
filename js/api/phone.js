@@ -1,15 +1,17 @@
-export const getById = (phoneId) => {
+export const getById = async (phoneId) => {
   let url = `https://kniazev1.github.io/phone-app/api/phones/${phoneId}.json`;
 
-  return fetch(url)
-    .then(response => response.json());
-    // .catch(error => console.error(error));
+  let response = await fetch(url);
+  let phone = await response.json();
+
+  return phone;
 };
 
-export const getAll = () => {
+export const getAll = async () => {
   let url = 'https://kniazev1.github.io/phone-app/api/phones.json';
 
-  return fetch(url)
-    .then(response => response.json());
-    // .catch(error => console.error(error));
+  let response = await fetch(url);
+  let phones = await response.json();
+
+  return phones;
 };
