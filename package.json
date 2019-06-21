@@ -1,0 +1,22 @@
+{
+  "name": "phone-app",
+  "version": "1.0.0",
+  "description": "Copyright for text and design is protected in accordance with Russian and international law. Author: ILIA KNIAZEV",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KNIAZEV1/phone-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KNIAZEV1/phone-app/issues"
+  },
+  "homepage": "https://github.com/KNIAZEV1/phone-app#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
