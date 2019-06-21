@@ -12,9 +12,14 @@ export const getAll = (params) => {
     .then(response => response.json())
     .then(phones => {
       const normalizedQuery = params.query.toLowerCase();
+      const key = params.sortField;
 
-      return phones.filter(
-        phone => phone.name.toLowerCase().includes(normalizedQuery)
-      );
+      return phones
+        .filter(
+          phone => phone.name.toLowerCase().includes(normalizedQuery)
+        )
+        .sort((phoneA, phoneB) => {
+          return phoneA[key] > phoneB[key] ? 1 : -1;
+        });
     })
 };
