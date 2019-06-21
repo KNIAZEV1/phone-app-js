@@ -19,20 +19,23 @@ export default class Basket extends Component {
     this.element.innerHTML = `
       <section>
         <p>Shopping Cart</p>
-        <ul>
-          ${items.map((item, index) => `
-            <li>
-              ${item}
-
-              <button
-                data-element="delete-button"
-                data-item-index="${index}"
-              >
-                x
-              </button>
-            </li>
-          `).join('')}
-        </ul>
+        ${ items.length > 0 ? `
+          <ul>
+            ${ items.map((item, index) => `
+              <li>
+                ${item}
+                <button
+                  data-element="delete-button"
+                  data-item-index="${index}"
+                >
+                  x
+                </button>
+              </li>
+            `).join('') }
+          </ul>
+        ` : `
+          <p>No items yet</p>
+        ` }
       </section>
     `;
   }

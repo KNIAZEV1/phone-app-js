@@ -3,15 +3,22 @@ import PhonesCatalogue from './PhonesCatalogue.js';
 import PhoneViewer from './PhoneViewer.js';
 import { getAll, getById } from '../api/phone.js';
 import Basket from './Basket.js';
+import Filter from './Filter.js';
 
 export default class PhonesPage extends Component {
   constructor(element) {
     super(element);
 
+    const initialItem = localStorage.getItem('basketItems')
+      ? localStorage.getItem('basketItems').split(',')
+      : [];
+
     this.state = { //- объект для хранения данных (свойств) компонента
       phones: [],
       selectedPhone: null,
-      basketItems: [],
+      basketItems: initialItem,
+      query: '',
+      sortField: '',
     };
 
     this.addBasketItem = (phoneId) => {
@@ -21,6 +28,7 @@ export default class PhonesPage extends Component {
           phoneId
         ]
       });
+      localStorage.setItem('basketItems', this.state.basketItems.join(','))
     };
 
     this.deleteBasketItem = (index) => {
@@ -32,6 +40,7 @@ export default class PhonesPage extends Component {
           ...items.slice(index + 1)
         ],
       });
+      localStorage.setItem('basketItems', this.state.basketItems.join(','))
     };
 
     this.showPhone = (phoneId) => {
@@ -45,13 +54,29 @@ export default class PhonesPage extends Component {
       this.setState({
         selectedPhone: null
       })
-    },
+    };
+
+    this.setQuery = (query) => {
+      this.setState({ query: query });
+      this.loadPhones();
+    };
+
+    this.setSortField = (sortField) => {
+      this.setState({ sortField: sortField });
+      this.loadPhones();
+    };
 
     this.render();
+    this.loadPhones();
+  }
 
-    getAll()
+  loadPhones() {
+    getAll({
+      query: this.state.query,
+      sortField: this.state.sortField,
+    })
       .then(phones => {
-        this.setState({ phones: phones });
+        this.setState({ phones });
       });
   }
 
@@ -60,21 +85,7 @@ export default class PhonesPage extends Component {
       <div class="row">
         <!--Sidebar-->
         <div class="col-md-2">
-          <section>
-            <p>
-              Search:
-              <input>
-            </p>
-
-            <p>
-              Sort by:
-              <select>
-                <option value="name">Alphabetical</option>
-                <option value="age">Newest</option>
-              </select>
-            </p>
-          </section>
-
+          <Filter></Filter>
           <Basket></Basket>
         </div>
         <!--Main content-->
@@ -101,6 +112,13 @@ export default class PhonesPage extends Component {
     this.initComponent(Basket, {
       items: this.state.basketItems,
       onDelete: this.deleteBasketItem,
+    });
+
+    this.initComponent(Filter, {
+      query: this.state.query,
+      sortField: this.state.sortField,
+      onQueryChange: this.setQuery,
+      onSortChange: this.setSortField,
     });
   }
 }
